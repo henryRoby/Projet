@@ -1,21 +1,20 @@
-{"items": [{
+ [{
     "nom": "Bruno", 
     "prenom":"Marcelino",
-    "image": "<img src='./../assets/image1.jpeg'/>"
+    "image": "/assets/image1.jpeg"
 },
 {
     "nom":"Heni", 
     "prenom":"Lecacher",
-    "image": ""
+    "image": "/assets/image2.jpeg"
 },
 {
     "nom":"Mamisoa", 
     "prenom":"Raz",
-    "image": ""
+    "image": "/assets/image4.jpeg"
 },
 {
     "nom":"Tsiory", 
     "prenom":"Raz",
-    "image": ""
+    "image": "/assets/image3.jpeg"
 }]
-}
