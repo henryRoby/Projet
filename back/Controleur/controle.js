@@ -27,10 +27,14 @@ module.exports.postList = (req, res) => {
     var lecture = fs.readFileSync('./Modele/note.json', 'utf8');
     var convert;
     convert = JSON.parse(lecture);
-    var id = parseInt(req.body.id)
+    var id;
+    (convert.length==0)?id=1:id=convert[convert.length-1].id + 1;
+    parseInt(id);
     convert.push({"id": id, "nom":req.body.nom, "prenom":req.body.prenom});
     fs.writeFileSync('./Modele/note.json', JSON.stringify(convert));
-    res.send(convert);
+    //res.send(convert);
+    res.redirect('http://localhost:3000/ajouter');
+    res.end();
 }
 
 module.exports.putList =  (req, res) =>{
