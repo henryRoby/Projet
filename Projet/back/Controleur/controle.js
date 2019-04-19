@@ -24,37 +24,47 @@ module.exports.getList = (req, res) => {
 }
 
 module.exports.postList = (req, res) => {
-    var lecture = fs.readFileSync('./Modele/note.json', 'utf8');
-    var convert;
-    convert = JSON.parse(lecture);
-    var id;
-    (convert.length==0)?id=1:id=convert[convert.length-1].id + 1;
-    parseInt(id);
-    convert.push({"id": id, "nom":req.body.nom, "prenom":req.body.prenom});
-    fs.writeFileSync('./Modele/note.json', JSON.stringify(convert));
-    //res.send(convert);
-    res.redirect('http://localhost:3000/ajouter');
-    res.end();
+    if(req.body.nom && req.body.prenom){
+        var lecture = fs.readFileSync('./Modele/note.json', 'utf8');
+        var convert;
+        convert = JSON.parse(lecture);
+        var id;
+        (convert.length==0)?id=1:id=convert[convert.length-1].id + 1;
+        parseInt(id);
+        convert.push({"id": id, "nom":req.body.nom, "prenom":req.body.prenom});
+        fs.writeFileSync('./Modele/note.json', JSON.stringify(convert));
+        //res.send(convert);
+        res.redirect('http://localhost:3000/list');
+        res.end();
+    } else {
+        res.redirect('http://localhost:3000/list');
+        res.end();
+    }
 }
 
 module.exports.putList =  (req, res) =>{
     console.log("Afficher requete:", req);
+    var id = parseInt(req.body.id)
+    var nom = req.body.nom
+    var prenom = req.body.prenom
     var lecture = fs.readFileSync('./Modele/note.json', 'utf8');
     var convert;
     convert = JSON.parse(lecture);
     for(let i=0;i<convert.length;i++) {
-         if(convert[i].id==req.body.id){
-              if(req.body.nom){
-                   convert[i].nom=req.body.nom;
+         if(id==convert[i].id){
+              if(nom){
+                   convert[i].nom=nom;
               }
-              if(req.body.prenom){
-                   convert[i].prenom=req.body.prenom;
+              if(prenom){
+                   convert[i].prenom=prenom;
               }
          }
     }
     console.log(convert);
     fs.writeFileSync('./Modele/note.json', JSON.stringify(convert));
-    res.send(convert);
+   //res.save(convert);
+   res.redirect('http://localhost:3000/list')
+   res.end()
 }
 
 module.exports.deleteList =  (req, res)=> {
@@ -69,6 +79,6 @@ module.exports.deleteList =  (req, res)=> {
     }
     console.log("resultat delete:", convert);
     fs.writeFileSync('./Modele/note.json', JSON.stringify(convert));
-    res.send(convert);
+    res.redirect('http://localhost:3000/list');
 }
 
